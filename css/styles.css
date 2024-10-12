@@ -54,3 +54,27 @@ body {
     background-color: #f4f4f4;  /* Farba pre stlačenú klávesu */
     color: #333333;
 }
+
+.container {
+    display: flex;
+    flex-direction: column;  /* Vertikálne zarovnanie */
+    justify-content: center;
+    align-items: center;
+    gap: 20px;  /* Medzera medzi terminálom a klávesnicou */
+    padding: 20px;
+}
+
+
+/* Terminálový kontajner */
+.terminal {
+    width: 910px;  /* Rovnaká šírka ako klávesnica */
+    height: 160px; /* Nastavenie výšky terminálu */
+    background-color: #1e1e1e;
+    color: #c9fdc9;
+    font-family: 'Courier New', Courier, monospace;
+    font-size:35px;
+    padding: 10px;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    overflow-y: auto; /* Možnosť posúvania ak je veľa textu */
+}
