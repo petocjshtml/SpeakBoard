@@ -3,63 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Keyboard with Dual Character Keys</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f4f4f4;
-        }
-        .keyboard {
-            display: grid;
-            grid-template-columns: repeat(15, 50px);
-            grid-gap: 10px;
-            padding: 20px;
-            background-color: #333;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-        }
-        .key {
-            background-color: #555;
-            color: #fff;
-            text-align: center;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 3px;
-            height: 50px;
-        }
-        .key:hover {
-            background-color: #777;
-        }
-        .key.wide {
-            grid-column: span 2;
-        }
-	    .key.shift {
-            grid-column: span 3;
-        }
-        .key.space {
-            grid-column: span 8;
-        }
-        .key .top, .key .bottom {
-            font-size: 16px;
-            line-height: 1;
-        }
-        .key .top {
-            margin-bottom: 3px; /* vertikálna medzera */
-        }
-    </style>
+    <title>Keyboard</title>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-
     <div class="keyboard">
         <!-- Horný riadok klávesnice -->
         <div class="key">
@@ -136,7 +83,7 @@
             <div class="top">}</div>
             <div class="bottom">]</div>
         </div>
-	<div class="key">
+	    <div class="key">
             <div class="top">|</div>
             <div class="bottom">\</div>
         </div>
@@ -187,24 +134,14 @@
 
         <!-- Spodný riadok klávesnice -->
         <div class="key wide">Ctrl</div>
-        <div class="key">Fn</div>
-        <div class="key">Alt</div>
+        <div class="key wide">Alt</div>
         <div class="key space">Space</div>
-        <div class="key">Alt</div>
-        <div class="key wide">Ctrl</div>
+        <div class="key">Left</div>
+        <div class="key">Up</div>
+        <div class="key">Down</div>
+        <div class="key">Right</div>
+        
     </div>
-
-    <script>
-        const keys = document.querySelectorAll('.key');
-        keys.forEach(key => {
-            key.addEventListener('click', () => {
-                key.style.backgroundColor = '#999';
-                setTimeout(() => {
-                    key.style.backgroundColor = '#555';
-                }, 200);
-            });
-        });
-    </script>
-
+    <script src="js/script.js"></script>
 </body>
 </html>
