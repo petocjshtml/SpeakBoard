@@ -78,3 +78,11 @@ body {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     overflow-y: auto; /* Možnosť posúvania ak je veľa textu */
 }
+
+.configForm {
+    border: 3px solid black;
+    padding:16px;
+    border-radius:15px;
+    background: linear-gradient(to right, rgb(0, 0, 0), #393999);
+    color:white;
+}

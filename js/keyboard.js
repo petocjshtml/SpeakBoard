@@ -129,10 +129,4 @@ document.addEventListener('keydown', function(event) {
     }
 });
 
-
-
-
-
-
-
-
+//logika pridávaniáa písmen s dlžňom a mäkčeňom

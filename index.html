@@ -8,9 +8,10 @@
 </head>
 <body>
     <div class="container">
-        <span style="font-size: 40px;color:#333333;"><b>Syntetická klávesnica</b></span>
+        <!-- <span style="font-size: 40px;color:#333333;"><b>Syntetická klávesnica</b></span> -->
+       
         <div class="terminal" id="terminal">
-            Ahojki
+        
         </div>
         <div class="keyboard">
             <!-- Horný riadok klávesnice -->
@@ -146,8 +147,27 @@
             <div class="key">Down</div>
             <div class="key">Right</div>
         </div>
+        <form id="configForm" class="configForm">
+            <!-- Rate (Rýchlosť čítania): povolené hodnoty sú od 0.1 do 10 -->
+            <label for="rate">Rýchlosť:</label>
+            <input type="number" id="rate" name="rate" value="1" min="0.1" max="10" step="0.1">
+        
+            <!-- Pitch (Výška tónu): povolené hodnoty sú od 0 do 2 -->
+            <label for="pitch">Výška:</label>
+            <input type="number" id="pitch" name="pitch" value="1" min="0" max="2" step="0.1">
+        
+            <!-- Volume (Hlasitosť): povolené hodnoty sú od 0 do 1 -->
+            <label for="volume">Hlasitosť:</label>
+            <input type="number" id="volume" name="volume" value="1" min="0" max="1" step="0.1">
+        
+            <!-- Voice (Výber hlasu): dynamicky naplnený dostupnými hlasmi -->
+            <label for="voice">Hlas:</label>
+            <select id="voice"></select>
+        </form>
+       
     </div>
     <script src="js/keyboard.js"></script>
     <script src="js/terminal.js"></script>
+    <script src="js/synthesis.js"></script>
 </body>
 </html>

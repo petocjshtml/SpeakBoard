@@ -1,85 +1,125 @@
-// Kontrola, či prehliadač podporuje Web Speech API
-if ('speechSynthesis' in window) {
-    console.log('Syntéza reči je podporovaná.');
-
-    // Získanie referencie na syntézu reči
-    const synth = window.speechSynthesis;
-
-    // Funkcia na čítanie textu s možnými nastaveniami
-    function citajText(text, nastavenia = {}) {
-        if (!text) return;
-
-        // Vytvorenie novej reči (utterance)
-        const utterance = new SpeechSynthesisUtterance(text);
-
-        // Výber hlasu (ak nie je zadaný, použije sa predvolený hlas)
-        const hlas = nastavenia.hlas || synth.getVoices()[0]; // Predvolený hlas
-        utterance.voice = hlas;
-
-        // Nastavenie rýchlosti čítania (rate)
-        // Minimálna hodnota: 0.1, Maximálna hodnota: 10, Predvolená hodnota: 1
-        utterance.rate = nastavenia.rychlost || 1; // Zadaj hodnotu medzi 0.1 a 10
-
-        // Nastavenie tónu (pitch)
-        // Minimálna hodnota: 0, Maximálna hodnota: 2, Predvolená hodnota: 1
-        utterance.pitch = nastavenia.ton || 1; // Zadaj hodnotu medzi 0 a 2
-
-        // Nastavenie hlasitosti (volume)
-        // Minimálna hodnota: 0 (ticho), Maximálna hodnota: 1 (maximálna hlasitosť), Predvolená hodnota: 1
-        utterance.volume = nastavenia.hlasitost || 1; // Zadaj hodnotu medzi 0 a 1
-
-        // Čítanie textu
-        synth.speak(utterance);
+function isSynthesisAllowed()
+{
+    if (!('speechSynthesis' in window)) {
+        alert("Syntéza v tomto prehliadači nieje podporovaná...")
     }
+}
 
-    // Funkcia na získanie dostupných hlasov
-    function ziskajHlasy() {
-        return synth.getVoices();
-    }
+//overenie, či je podporovaná v prehliadači syntéza
+isSynthesisAllowed();
 
-    // Funkcia na zistenie, či prebieha aktuálne čítanie
-    function jeCitanie() {
-        return synth.speaking;
-    }
+// Definícia konfiguračného objektu
+let config = {
+    rate: 1, // Rýchlosť čítania (štandardná hodnota je 1)
+    pitch: 1, // Výška tónu (štandardná hodnota je 1)
+    volume: 1, // Hlasitosť (štandardná hodnota je 1)
+    voice: null // Výber hlasu 
+};
 
-    // Funkcia na zastavenie čítania
-    function zastavCitanie() {
-        if (jeCitanie()) {
-            synth.cancel();
-        }
-    }
+// Dynamické naplnenie select prvku hlasmi a automatické nastavenie konfiguračného objektu
+function loadVoices() {
+    let voiceSelect = document.getElementById('voice');
+    let voices = window.speechSynthesis.getVoices();
 
-    // Funkcia na pauzovanie čítania
-    function pauzujCitanie() {
-        if (jeCitanie() && !synth.paused) {
-            synth.pause();
-        }
-    }
-
-    // Funkcia na pokračovanie čítania
-    function pokracujCitanie() {
-        if (jeCitanie() && synth.paused) {
-            synth.resume();
-        }
-    }
-
-    // Ukážka používania funkcie na čítanie textu s rôznymi nastaveniami
-    document.getElementById('startButton').addEventListener('click', () => {
-        const text = document.getElementById('textToRead').value;
-        const nastavenia = {
-            hlas: ziskajHlasy()[1],   // Vyber hlas, aký sa ti páči (ak je dostupný)
-            rychlost: 1.2,            // Trochu rýchlejšie čítanie
-            ton: 1,                   // Štandardný tón
-            hlasitost: 0.8            // Trochu nižšia hlasitosť
-        };
-        citajText(text, nastavenia);
+    voiceSelect.innerHTML = ''; // Vyčistiť select pred pridaním nových hlasov
+    voices.forEach((voice, index) => {
+        let option = document.createElement('option');
+        option.value = index;
+        option.textContent = `${voice.name} (${voice.lang})`;
+        voiceSelect.appendChild(option);
     });
 
-    // Ukážka použitia pauzy a pokračovania
-    document.getElementById('pauseButton').addEventListener('click', pauzujCitanie);
-    document.getElementById('resumeButton').addEventListener('click', pokracujCitanie);
-    document.getElementById('stopButton').addEventListener('click', zastavCitanie);
-
-} else {
-    console.log('Syntéza reči nie je podporovaná týmto prehliadačom.');
+    // Automatické nastavenie prvého hlasu do configu
+    if (voices.length > 0) {
+        config.voice = voices[0];
+        console.log(config); // Výpis konfiguračného objektu do konzoly
+    }
 }
+
+// Čakať na načítanie hlasov a hneď spustiť funkciu
+window.speechSynthesis.onvoiceschanged = loadVoices;
+
+// Funkcia na aktualizáciu konfiguračného objektu a výpis do konzoly
+function updateConfig() {
+    config.rate = parseFloat(document.getElementById('rate').value);
+    config.pitch = parseFloat(document.getElementById('pitch').value);
+    config.volume = parseFloat(document.getElementById('volume').value);
+    let voiceSelect = document.getElementById('voice');
+    let voices = window.speechSynthesis.getVoices();
+    config.voice = voices[voiceSelect.value];
+
+    // Výpis aktualizovaného konfiguračného objektu do konzoly
+    console.log(config);
+}
+
+// Nastavenie onchange pre všetky inputy a select
+document.getElementById('rate').onchange = updateConfig;
+document.getElementById('pitch').onchange = updateConfig;
+document.getElementById('volume').onchange = updateConfig;
+document.getElementById('voice').onchange = updateConfig;
+
+// Funkcia read (umožní paralelné čítanie)
+function read(text, config) {
+    let utterance = new SpeechSynthesisUtterance(text);
+
+    // Nastavenie parametrov syntetizátora z konfiguračného objektu
+    if (config) {
+        utterance.rate = config.rate;
+        utterance.pitch = config.pitch;
+        utterance.volume = config.volume;
+        utterance.voice = config.voice; // Musí byť nastavený hlas
+    }
+
+    // Spustenie čítania bez prerušenia aktuálnych čítaní
+    window.speechSynthesis.speak(utterance);
+}
+
+// Funkcia readNew (zruší prebiehajúce čítania a začne nové)
+function readNew(text, config) {
+    let utterance = new SpeechSynthesisUtterance(text);
+
+    // Nastavenie parametrov syntetizátora z konfiguračného objektu
+    if (config) {
+        utterance.rate = config.rate;
+        utterance.pitch = config.pitch;
+        utterance.volume = config.volume;
+        utterance.voice = config.voice; // Musí byť nastavený hlas
+    }
+
+    // Zrušenie aktuálnych prebiehajúcich čítaní
+    window.speechSynthesis.cancel();
+
+    // Spustenie nového čítania
+    window.speechSynthesis.speak(utterance);
+}
+
+// Funkcia readAfter (naplánuje čítanie po dokončení aktuálneho)
+function readAfter(text, config) {
+    let utterance = new SpeechSynthesisUtterance(text);
+
+    // Nastavenie parametrov syntetizátora z konfiguračného objektu
+    if (config) {
+        utterance.rate = config.rate;
+        utterance.pitch = config.pitch;
+        utterance.volume = config.volume;
+        utterance.voice = config.voice; // Musí byť nastavený hlas
+    }
+
+    // Overenie, či niečo práve číta
+    if (window.speechSynthesis.speaking || window.speechSynthesis.pending) {
+        // Ak prebieha čítanie, naplánuj nové čítanie po skončení aktuálnych
+        window.speechSynthesis.onend = function() {
+            window.speechSynthesis.speak(utterance);
+        };
+    } else {
+        // Ak nič neprebieha, okamžite spusti nové čítanie
+        window.speechSynthesis.speak(utterance);
+    }
+}
+
+
+
+
+
+
+

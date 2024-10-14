@@ -1,7 +1,7 @@
-document.addEventListener('keydown', function(event) {
+document.addEventListener('keyup', function(event) {
     const typedCharacter = event.key;
 
-   // console.log('Napísané písmenko:', typedCharacter);
+    console.log('Napísané písmenko:', typedCharacter);
     switch (typedCharacter) {
         case "ArrowLeft":
             return;
@@ -57,11 +57,17 @@ document.addEventListener('keydown', function(event) {
         case "Delete":
             vymazPismeno();
         break;
+        case " ":
+            napisDoTerminalu(event.key);
+            readNew(getLastWordFromTerminal(), config);
+        break;
         case "Enter":
             napisDoTerminalu("<br>");
+            readAfter(getLastWordFromTerminal(), config);
         break;
         case "Tab":
             napisDoTerminalu("&nbsp;&nbsp;&nbsp;");
+            readAfter(getLastWordFromTerminal(), config);
         break;
     
         default:
@@ -115,6 +121,14 @@ function textTerminalZmena(){
 
     console.log(parsedTextFromTerminal);
 }
+
+function getLastWordFromTerminal() 
+{
+    const terminalHtml = document.getElementById("terminal").innerHTML;
+    const parsedTextFromTerminal = parsujText(terminalHtml);
+    return parsedTextFromTerminal[parsedTextFromTerminal.length-1];
+}
+
 
 
 
