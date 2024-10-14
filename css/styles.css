@@ -79,10 +79,56 @@ body {
     overflow-y: auto; /* Možnosť posúvania ak je veľa textu */
 }
 
+/* Formulár pre nastavenie syntetizátora - css */
+
 .configForm {
+    width: 894px;
     border: 3px solid black;
-    padding:16px;
-    border-radius:15px;
+    padding: 16px;
+    border-radius: 15px;
     background: linear-gradient(to right, rgb(0, 0, 0), #393999);
-    color:white;
+    color: white;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: space-between;
+}
+
+.configForm div {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+.configForm label {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.configForm input, .configForm select {
+    padding: 8px;
+    border-radius: 8px;
+    border: none;
+    background-color: #f0f0f0;
+    color: black;
+    font-size: 14px;
+    width: 60px;
+}
+
+.configForm input[type="number"] {
+    width: 60px; /* Nastavenie šírky inputov */
+}
+
+.configForm select {
+    flex-grow: 1; /* Šírka selectu, aby sa prispôsobil zvyšnej šírke */
+}
+
+.configForm div:last-child {
+    flex-grow: 2;
+}
+
+.configForm input:focus, .configForm select:focus {
+    outline: none;
+    border: 2px solid #393999;
 }

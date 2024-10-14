@@ -1,4 +1,71 @@
-document.addEventListener('keyup', function(event) {
+//logika pridávaniáa písmen s dlžňom a mäkčeňom
+let dlzen = false;
+let makcen = false;
+
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Dead') {
+        if (event.shiftKey) {
+            makcen = true;
+        } else {
+            dlzen = true;
+        }  
+    }
+});
+
+function pridajDiakritiku(pismeno) {
+    // Mapovanie písmen s dlžňami
+    const dlzenMap = {
+        'a': 'á',
+        'e': 'é',
+        'i': 'í',
+        'o': 'ó',
+        'u': 'ú',
+        'y': 'ý',
+        'A': 'Á',
+        'E': 'É',
+        'I': 'Í',
+        'O': 'Ó',
+        'U': 'Ú',
+        'Y': 'Ý'
+    };
+
+    // Mapovanie písmen s mäkčeňmi
+    const makcenMap = {
+        'c': 'č',
+        'd': 'ď',
+        'l': 'ľ',
+        'n': 'ň',
+        's': 'š',
+        't': 'ť',
+        'z': 'ž',
+        'C': 'Č',
+        'D': 'Ď',
+        'L': 'Ľ',
+        'N': 'Ň',
+        'S': 'Š',
+        'T': 'Ť',
+        'Z': 'Ž'
+    };
+
+    // Ak je nastavený dlžeň
+    if (dlzen && dlzenMap[pismeno]) {
+        pismeno = dlzenMap[pismeno];
+    }
+    // Ak je nastavený mäkčeň
+    else if (makcen && makcenMap[pismeno]) {
+        pismeno = makcenMap[pismeno];
+    }
+
+    // Vynulovanie premenných
+    dlzen = false;
+    makcen = false;
+
+    // Vrátenie výsledného písmenka
+    return pismeno;
+}
+
+
+document.addEventListener('keydown', function(event) {
     const typedCharacter = event.key;
 
     console.log('Napísané písmenko:', typedCharacter);
@@ -78,7 +145,7 @@ document.addEventListener('keyup', function(event) {
 
 function napisDoTerminalu(pismeno){
     const terminal = document.getElementById("terminal");
-    terminal.innerHTML += pismeno;
+    terminal.innerHTML += pridajDiakritiku(pismeno);
     terminal.scrollTop = terminal.scrollHeight;
     textTerminalZmena();
 }
@@ -128,6 +195,9 @@ function getLastWordFromTerminal()
     const parsedTextFromTerminal = parsujText(terminalHtml);
     return parsedTextFromTerminal[parsedTextFromTerminal.length-1];
 }
+
+
+
 
 
 
