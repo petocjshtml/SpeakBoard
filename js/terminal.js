@@ -71,34 +71,38 @@ document.addEventListener('keydown', function(event) {
     console.log('Napísané písmenko:', typedCharacter);
     switch (typedCharacter) {
         case "ArrowLeft":
-            return;
+            read("Vľavo");
         break;
         case "ArrowRight":
-            return;
+            read("Vpravo");
         break;
         case "ArrowDown":
-            return;
+            read("Dolu");
         break;
         case "ArrowUp":
-            return;
+            read("Hore");
         break;
         case "Shift":
-            return;
+            read("Držím Shift");
         break;
         case "Dead":
             return;
         break;
         case "CapsLock":
-            return;
+            if (event.getModifierState('CapsLock')) {
+                read("Zapínam CapsLock");
+            } else {
+                read("Vypínam CapsLock");
+            }
         break;
         case "Alt":
-            return;
+            read("Držím Alt");
         break;
         case "Meta":
             return;
         break;
         case "Control":
-            return;
+            read("Držím Control");
         break;
         case "AudioVolumeUp":
             return;
@@ -126,19 +130,39 @@ document.addEventListener('keydown', function(event) {
         break;
         case " ":
             napisDoTerminalu(event.key);
-            readNew(getLastWordFromTerminal(), config);
+            read("Medzera");
         break;
         case "Enter":
             napisDoTerminalu("<br>");
-            readAfter(getLastWordFromTerminal(), config);
+            read("Nový riadok");
         break;
         case "Tab":
             napisDoTerminalu("&nbsp;&nbsp;&nbsp;");
-            readAfter(getLastWordFromTerminal(), config);
+            read("Tabulátor");
         break;
     
         default:
         napisDoTerminalu(event.key);
+        read(getLastWordFromTerminal());
+        break;
+    }
+});
+
+
+document.addEventListener('keyup', function(event) {
+    const typedCharacter = event.key;
+    switch (typedCharacter) {
+        case "Shift":
+            read("Púšťam Shift");
+        break;
+        case "Alt":
+            read("Púšťam Alt");
+        break;
+        case "Control":
+            read("Púšťam Control");
+        break;
+
+        default:
         break;
     }
 });
@@ -147,7 +171,6 @@ function napisDoTerminalu(pismeno){
     const terminal = document.getElementById("terminal");
     terminal.innerHTML += pridajDiakritiku(pismeno);
     terminal.scrollTop = terminal.scrollHeight;
-    textTerminalZmena();
 }
 
 function vymazPismeno() {
@@ -157,15 +180,23 @@ function vymazPismeno() {
      if (aktualnyText.endsWith('&nbsp;')) {
         // Odstrániť celú HTML entitu `&nbsp;`
         terminal.innerHTML = aktualnyText.slice(0, -6); 
+        read("Mažem tabulátor");
     } else if (aktualnyText.endsWith('<br>')) {
         // Odstrániť celú HTML značku `<br>`
         terminal.innerHTML = aktualnyText.slice(0, -4); 
-    } else {
+        read("Mažem enter");
+    } 
+    else if (aktualnyText.endsWith(" ")) {
+        // Odstrániť medzeru
+        terminal.innerHTML = aktualnyText.slice(0, -1); 
+        read("Mažem medzeru");
+    }
+    else {
         // Inak odstrániť jeden znak
         terminal.innerHTML = aktualnyText.slice(0, -1);
+        read(`Mažem ${aktualnyText.slice(-1)}`);
     }
     terminal.scrollTop = terminal.scrollHeight; 
-    textTerminalZmena();
 }
 
 function parsujText(html) {
@@ -185,7 +216,6 @@ function parsujText(html) {
 function textTerminalZmena(){
     const terminalHtml = document.getElementById("terminal").innerHTML;
     const parsedTextFromTerminal = parsujText(terminalHtml);
-
     console.log(parsedTextFromTerminal);
 }
 
@@ -194,6 +224,11 @@ function getLastWordFromTerminal()
     const terminalHtml = document.getElementById("terminal").innerHTML;
     const parsedTextFromTerminal = parsujText(terminalHtml);
     return parsedTextFromTerminal[parsedTextFromTerminal.length-1];
+}
+
+function getLastLetterFromTerminal() 
+{
+    return getLastWordFromTerminal().slice(-1);
 }
 
 
