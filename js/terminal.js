@@ -1,4 +1,3 @@
-//logika pridávaniáa písmen s dlžňom a mäkčeňom
 let dlzen = false;
 let makcen = false;
 
@@ -13,7 +12,6 @@ document.addEventListener('keydown', function(event) {
 });
 
 function pridajDiakritiku(pismeno) {
-    // Mapovanie písmen s dlžňami
     const dlzenMap = {
         'a': 'á',
         'e': 'é',
@@ -29,7 +27,6 @@ function pridajDiakritiku(pismeno) {
         'Y': 'Ý'
     };
 
-    // Mapovanie písmen s mäkčeňmi
     const makcenMap = {
         'c': 'č',
         'd': 'ď',
@@ -47,20 +44,15 @@ function pridajDiakritiku(pismeno) {
         'Z': 'Ž'
     };
 
-    // Ak je nastavený dlžeň
     if (dlzen && dlzenMap[pismeno]) {
         pismeno = dlzenMap[pismeno];
     }
-    // Ak je nastavený mäkčeň
     else if (makcen && makcenMap[pismeno]) {
         pismeno = makcenMap[pismeno];
     }
 
-    // Vynulovanie premenných
     dlzen = false;
     makcen = false;
-
-    // Vrátenie výsledného písmenka
     return pismeno;
 }
 
@@ -176,23 +168,18 @@ function napisDoTerminalu(pismeno){
 function vymazPismeno() {
     const terminal = document.getElementById("terminal");
     const aktualnyText = terminal.innerHTML;
-     // Skontrolovať, či text končí na `&nbsp;` alebo `<br>`
      if (aktualnyText.endsWith('&nbsp;')) {
-        // Odstrániť celú HTML entitu `&nbsp;`
         terminal.innerHTML = aktualnyText.slice(0, -6); 
         read("Mažem tabulátor");
     } else if (aktualnyText.endsWith('<br>')) {
-        // Odstrániť celú HTML značku `<br>`
         terminal.innerHTML = aktualnyText.slice(0, -4); 
         read("Mažem enter");
     } 
     else if (aktualnyText.endsWith(" ")) {
-        // Odstrániť medzeru
         terminal.innerHTML = aktualnyText.slice(0, -1); 
         read("Mažem medzeru");
     }
     else {
-        // Inak odstrániť jeden znak
         terminal.innerHTML = aktualnyText.slice(0, -1);
         read(`Mažem ${aktualnyText.slice(-1)}`);
     }
@@ -200,16 +187,9 @@ function vymazPismeno() {
 }
 
 function parsujText(html) {
-    // Krok 1: Nahradiť všetky <br> značky za medzery
     let upravenyText = html.replace(/<br\s*\/?>/gi, ' ');
-
-    // Krok 2: Nahradiť všetky &nbsp; za obyčajné medzery
     upravenyText = upravenyText.replace(/&nbsp;/gi, ' ');
-
-    // Krok 3: Rozdeliť text podľa medzier a uložiť jednotlivé slová do poľa
-    const slova = upravenyText.split(/\s+/).filter(slovo => slovo.length > 0); // Odstráni prázdne slová
-
-    // Vráti pole jednotlivých slov
+    const slova = upravenyText.split(/\s+/).filter(slovo => slovo.length > 0); 
     return slova;
 }
 

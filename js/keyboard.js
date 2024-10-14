@@ -1,6 +1,5 @@
 const keys = document.querySelectorAll('.key');
 
-// Mapa kláves s ich poradovým číslom (indexom v poli keys)
 const keyMap = {
     'Backquote': 0,    // ~ `
     'Digit1': 1,       // ! 1
@@ -68,7 +67,6 @@ const keyMap = {
     'ArrowRight': 59    // Right arrow
 };
 
-// Funkcia na stlačenie klávesu
 function stlacKlav(klavesPoradie) {
     if (klavesPoradie !== null && keys[klavesPoradie]) {
         const klaves = keys[klavesPoradie];
@@ -76,15 +74,13 @@ function stlacKlav(klavesPoradie) {
     }
 }
 
-// Funkcia na uvoľnenie klávesu
 function uvolniKlav(klavesPoradie) {
     if (klavesPoradie !== null && keys[klavesPoradie]) {
         const klaves = keys[klavesPoradie];
-        klaves.classList.remove('pressed');  // Odstráň triedu "pressed"
+        klaves.classList.remove('pressed');  
     }
 }
 
-// Event listenery pre keydown a keyup
 document.addEventListener('keydown', (e) => {
     const klavesPoradie = keyMap[e.code];
     if (klavesPoradie !== undefined) {
@@ -101,29 +97,27 @@ document.addEventListener('keyup', (e) => {
 
 
 document.addEventListener('keydown', function(event) {
-    // Kontrola kombinácií s Ctrl (napr. Ctrl+S)
-    if (event.ctrlKey || event.metaKey) {  // Ctrl (Windows/Linux) alebo Command (Mac)
+    if (event.ctrlKey || event.metaKey) {  
         switch (event.key.toLowerCase()) {
-            case 's':   // Ctrl+S (uloženie)
-            case 'p':   // Ctrl+P (tlač)
-            case 'w':   // Ctrl+W (zatvorenie)
+            case 's':   
+            case 'p':   
+            case 'w':  
                 event.preventDefault();
                 break;
         }
     }
 
-    // Jednoduché klávesy bez kombinácií
     switch (event.code) {
-        case 'F5':          // Disable F5 (refresh)
-        case 'Tab':         // Disable Tab key behavior
-        case 'Backspace':   // Disable Backspace
-        case 'Enter':       // Disable Enter
-        case 'ShiftRight':  // Disable Right Shift
-        case 'ShiftLeft':   // Disable Left Shift
-        case 'CapsLock':    // Disable Caps Lock
-        case 'ControlLeft': // Disable Left Ctrl
-        case 'AltLeft':     // Disable Left Alt
-        case 'Space':       // Disable Spacebar
+        case 'F5':          
+        case 'Tab':         
+        case 'Backspace':  
+        case 'Enter':       
+        case 'ShiftRight': 
+        case 'ShiftLeft':  
+        case 'CapsLock':    
+        case 'ControlLeft':
+        case 'AltLeft':    
+        case 'Space':      
             event.preventDefault();
             break;
     }
