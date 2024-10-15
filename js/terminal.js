@@ -178,6 +178,14 @@ document.addEventListener('keydown', function(event) {
             napisDoTerminalu(event.key);
             read("Bodkočiarka");
         break;
+        case "'":
+            napisDoTerminalu(event.key);
+            read("Úvodzovka");
+        break;
+        case '"':
+            napisDoTerminalu(event.key);
+            read("Dvojitá Úvodzovka");
+        break;
         case "Backspace":
             vymazPismeno();
         break;
