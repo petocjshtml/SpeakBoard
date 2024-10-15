@@ -3,7 +3,7 @@
 Tento projekt je klávesnica určená pre zrakovo znevýhodnených používateľov, ktorá využíva syntézu reči. Každé slovo je okamžite prečítané nahlas, čo používateľom umožňuje vedieť, čo píšu v reálnom čase.
 
 ## Funkcie
-- **Syntéza reči v reálnom čase**: Každé písmeno alebo znak, ktorý používateľ napíše, je okamžite prečítané.
+- **Syntéza reči v reálnom čase**: Každé slovo, ktoré používateľ napíše, alebo ovládacie klávesy sú okamžite prečítané nahlas.
 - **Podpora diakritiky**: Špeciálne znaky a diakritika (napr. č, š, ď) sú plne podporované, pričom klávesnica správne číta ich kombinácie.
 - **Prispôsobiteľná rýchlosť reči**: Používateľ si môže nastaviť rýchlosť čítania, hlasitosť, výšku hlasu a vybrať si vlastný hlas z dostupných hlasov podľa svojej potreby.
 
