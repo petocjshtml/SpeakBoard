@@ -13,7 +13,7 @@ Tento projekt je klávesnica určená pre zrakovo znevýhodnených používateľ
 
 ## Ako používať
 1. Otvorte aplikáciu v prehliadači.
-2. Začnite písať na klávesnici, pričom zadané znaky budú prečítané nahlas.
+2. Začnite písať na klávesnici a syntetizátor sa postará, aby ste presne vedeli, čo v danej chvíli píšete.
 3. Môžete prispôsobiť parametre syntézy (rýchlosť, výška, hlasitosť, hlas) podľa vašich preferencií.
 
 Tento projekt je súčasťou iniciatívy na zlepšenie prístupnosti pre zrakovo znevýhodnených používateľov a jeho cieľom je pomôcť tým, ktorí to potrebujú.
