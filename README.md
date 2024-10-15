@@ -1,6 +1,6 @@
 # Klávesnica pre zrakovo znevýhodnených
 
-Tento projekt je klávesnica určená pre zrakovo znevýhodnených používateľov, ktorá využíva syntézu reči. Každé stlačenie klávesy je okamžite prečítané nahlas, čo používateľom umožňuje vedieť, čo píšu v reálnom čase.
+Tento projekt je klávesnica určená pre zrakovo znevýhodnených používateľov, ktorá využíva syntézu reči. Každé slovo je okamžite prečítané nahlas, čo používateľom umožňuje vedieť, čo píšu v reálnom čase.
 
 ## Funkcie
 - **Syntéza reči v reálnom čase**: Každé písmeno alebo znak, ktorý používateľ napíše, je okamžite prečítané.
