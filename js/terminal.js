@@ -114,6 +114,70 @@ document.addEventListener('keydown', function(event) {
         case "Insert":
             return;
         break;
+        case ",":
+            napisDoTerminalu(event.key);
+            read("Čiarka");
+        break;
+        case ".":
+            napisDoTerminalu(event.key);
+            read("Bodka");
+        break;
+        case ":":
+            napisDoTerminalu(event.key);
+            read("Dvojbodka");
+        break;
+        case "?":
+            napisDoTerminalu(event.key);
+            read("Otáznik");
+        break;
+        case "!":
+            napisDoTerminalu(event.key);
+            read("Výkričník");
+        break;
+        case "-":
+            napisDoTerminalu(event.key);
+            read("Pomlčka");
+        break;
+        case "(":
+            napisDoTerminalu(event.key);
+            read("Ľavá okruhlá zátvorka");
+        break;
+        case ")":
+            napisDoTerminalu(event.key);
+            read("Pravá okruhlá zátvorka");
+        break;
+        case "{":
+            napisDoTerminalu(event.key);
+            read("Ľavá zložená zátvorka");
+        break;
+        case "}":
+            napisDoTerminalu(event.key);
+            read("Pravá zložená zátvorka");
+        break;
+        case "[":
+            napisDoTerminalu(event.key);
+            read("Ľavá hranatá zátvorka");
+        break;
+        case "]":
+            napisDoTerminalu(event.key);
+            read("Pravá hranatá zátvorka");
+        break;
+        case "<":
+            napisDoTerminalu(event.key);
+            read("Ľavá špicatá zátvorka");
+        break;
+        case ">":
+            napisDoTerminalu(event.key);
+            read("Pravá špicatá zátvorka");
+        break;
+        case "=":
+            napisDoTerminalu(event.key);
+            read("Rovná sa");
+        break;
+        case ";":
+            napisDoTerminalu(event.key);
+            read("Bodkočiarka");
+        break;
         case "Backspace":
             vymazPismeno();
         break;
